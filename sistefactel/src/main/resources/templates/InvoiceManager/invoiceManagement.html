@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<body>
+	<th:block layout:fragment="tittle">Listar Clientes</th:block>
+	<th:block layout:fragment="content">
+		<div class="row">
+			<div class="col-md-8">
+				<button type="button" class="btn bg-blue btn-labeled heading-btn"
+					onclick="create()">
+					<i class="icon-plus3 position-left"></i> Crear Factura
+				</button>
+			</div>
+		</div>
+		<br />
+
+
+		<table id="dtElement"
+			class="table table-bordered datatable-save-state">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Fecha</th>
+					<th>Cliente</th>
+					<th>Fecha</th>
+					<th>Estado</th>
+					<th>DNI/RUC</th>
+					<th>Total</th>
+					<th class="text-center">Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+
+		
+			
+	</th:block>
+	<th:block layout:fragment="scripts">
+		<script th:inline="javascript">
+        var dtTable;
+        var urlContext=/*[[@{/}]]*/;
+        var saveURL = urlContext+"/cliente/";
+        var listAllURL = urlContext+'/cliente/listAll';
+        var getByURL = urlContext+"/cliente/getById/";
+        var deleteURL = urlContext+"/cliente/delete/";
+       
+        function arrayDatatable(elem){
+        	 var array=[
+                 elem.idCliente,
+                 elem.nombre,
+                 elem.apellido,
+                 elem.email,
+                 dropDown(elem.idCliente)];
+        	return array;
+        }
+        $(document).ready(function () {
+        	dtTable = $("#dtElement").DataTable({                              
+                searching: !1
+            });
+            showList();
+        });
+        
+             
+        function showList(){
+			showListAllFunction(listAllURL,arrayDatatable,dtTable);
+		}
+        function create() {
+        	resetFormElement();
+            $("#id").val(0);
+            $('#modal_default').modal();
+        }
+        function functionSetData(data){
+        	 
+        	$("#id").val(data.idCliente);
+	        $("#nombre").val(data.nombre);
+	        $("#apellidos").val(data.apellido);
+	        $("#correo").val(data.email);
+	        $("#identificador").val(data.identificador);
+	        $("#company").val(data.company);
+	        $("#telefono").val(data.telefono);
+	        $("#ciudad").val(data.ciudad),
+	        $("#status").val(data.status),
+	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+        }
+		function showDetail(id){			
+			showDetailFunction(getByURL,id, functionSetData)
+		}
+         
+        
+        function integerToBoolean(value){
+            return (parseInt(value)==1)?true:false;            
+        }
+        function resetFormElement() {
+            resetForm("frmModalCliente");
+        }
+    </script>
+
+	</th:block>
+</body>
+</html>

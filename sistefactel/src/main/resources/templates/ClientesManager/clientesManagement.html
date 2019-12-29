@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+
+<body>
+	<th:block layout:fragment="tittle">Listar Clientes</th:block>
+	<th:block layout:fragment="content">
+		<div class="row">
+			<div class="col-md-8">
+				<button type="button" class="btn bg-blue btn-labeled heading-btn"
+					onclick="create()">
+					<i class="icon-plus3 position-left"></i> Agregar
+				</button>
+			</div>
+		</div>
+		<br />
+
+
+		<table id="dtElement"
+			class="table table-bordered datatable-save-state">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Apellidos</th>
+					<th>Correo</th>
+
+					<th class="text-center">Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+
+		<div id="modal_default" class="modal fade">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h5 class="modal-title">Cliente</h5>
+					</div>
+
+					<div class="modal-body">
+
+						<form id="frmModalCliente" class="form-horizontal">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-lg-3 control-label">DNI/RUC</label>
+										<div class="col-lg-9">
+											<input type="text" name="identificador" id="identificador"
+												class="form-control" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Nombre</label>
+										<div class="col-lg-9">
+											<input type="text" name="nombre" id="nombre"
+												class="form-control" /> <input type="hidden" name="id"
+												id="id" /> <input type="hidden" name="idCuenta"
+												id="idCuenta" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Apellidos</label>
+										<div class="col-lg-9">
+											<input type="text" name="apellidos" id="apellidos"
+												class="form-control" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Correo</label>
+										<div class="col-lg-9">
+											<input type="text" name="correo" id="correo"
+												class="form-control" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">telefono</label>
+										<div class="col-lg-9">
+											<input type="text" name="telefono" id="telefono"
+												class="form-control" />
+										</div>
+									</div>
+
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Es Ruc</label>
+										<div class="col-lg-9">
+											<div class="checkbox">
+												<label> <input type="checkbox" id="isRuc"
+													name="isRuc" />
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Compañia</label>
+										<div class="col-lg-9">
+											<input type="text" name="company" id="company"
+												class="form-control" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Estado</label>
+										<div class="col-lg-9">
+											<select name="status" id="status" class="form-control">
+												<option value="1">Activo</option>
+												<option value="0">Inactivo</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Ciudad</label>
+										<div class="col-lg-9">
+											<input type="text" name="ciudad" id="ciudad"
+												class="form-control" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Direccion</label>
+										<div class="col-lg-9">
+											<textarea class="form-control" rows="3" name="direccion"
+												id="direccion"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+						<button type="button" onclick="save()" class="btn btn-primary">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	<th:block layout:fragment="scripts">
+		<script th:inline="javascript">
+        var dtTable;
+        var urlContext=/*[[@{/}]]*/;
+        var saveURL = urlContext+"/cliente/";
+        var listAllURL = urlContext+'/cliente/listAll';
+        var getByURL = urlContext+"/cliente/getById/";
+        var deleteURL = urlContext+"/cliente/delete/";
+       
+        function arrayDatatable(elem){
+        	 var array=[
+                 elem.idCliente,
+                 elem.nombre,
+                 elem.apellido,
+                 elem.email,
+                 dropDown(elem.idCliente)];
+        	return array;
+        }
+        $(document).ready(function () {
+        	dtTable = $("#dtElement").DataTable({                              
+                searching: !1
+            });
+            showList();
+        });
+        
+       	function save(){	 
+       		
+       		var arrayData={
+                    idCliente: $("#id").val()==""?0:$("#id").val(),
+                    nombre: $("#nombre").val(),
+                    apellido: $("#apellidos").val(),
+                    email: $("#correo").val(),
+                    identificador: $("#identificador").val(),
+                    company: $("#company").val(),
+                    ciudad: $("#ciudad").val(),
+                    telefono: $("#telefono").val(),
+                    isRuc: setValueCheckType("#isRuc"),
+                    status:$("#status").val(),
+                    direccion: $("#direccion").val()
+                };
+       		saveFunction(saveURL,arrayData,arrayData.idCliente);
+       	}
+		function showList(){
+			showListAllFunction(listAllURL,arrayDatatable,dtTable);
+		}       
+		
+        function create() {
+        	resetFormElement();
+            $("#id").val(0);
+            $('#modal_default').modal();
+        }
+        function functionSetData(data){
+        	 
+        	$("#id").val(data.idCliente);
+	        $("#nombre").val(data.nombre);
+	        $("#apellidos").val(data.apellido);
+	        $("#correo").val(data.email);
+	        $("#identificador").val(data.identificador);
+	        $("#company").val(data.company);
+	        $("#telefono").val(data.telefono);
+	        $("#ciudad").val(data.ciudad),
+	        $("#status").val(data.status),
+	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+        }
+		function showDetail(id){			
+			showDetailFunction(getByURL,id, functionSetData)
+		}
+         
+        
+
+        function deleteData(id) {
+        	deleteElement("el cliente",id,deleteURL,showList,resetFormElement)
+        }
+        function setValueCheckType(id){
+            return $(id).prop("checked")? 1:0;             
+        }
+        function integerToBoolean(value){
+            return (parseInt(value)==1)?true:false;            
+        }
+        function resetFormElement() {
+            resetForm("frmModalCliente");
+        }
+    </script>
+
+	</th:block>
+</body>
+</html>
