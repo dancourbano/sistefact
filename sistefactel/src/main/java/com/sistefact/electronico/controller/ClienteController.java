@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.sistefact.electronico.AppProperties.SistefactelAPPUrl;
 import com.sistefact.electronico.AppProperties.SistefactelAPPView;
+import com.sistefact.electronico.dto.ClienteDto;
 import com.sistefact.electronico.exception.ModeloNotFoundException;
 import com.sistefact.electronico.models.AjaxResponseBody;
 import com.sistefact.electronico.models.Cliente;
@@ -32,12 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 @Controller
-@RequestMapping(SistefactelAPPUrl.CLIENTE_ROOT)
 public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
-	@GetMapping("/")
-    public String main(Model model) {        
+	@RequestMapping("/")
+    public String main() {        
         return SistefactelAPPView.CLIENTE;
     }
 	@GetMapping(value = "/listAll",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -97,4 +97,5 @@ public class ClienteController {
 		resultAjax.setMessage("Se Eliminó con éxito");
         return ResponseEntity.status(HttpStatus.OK).body(resultAjax);
 	}
+		
 }

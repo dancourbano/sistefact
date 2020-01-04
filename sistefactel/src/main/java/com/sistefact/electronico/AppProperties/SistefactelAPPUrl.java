@@ -16,6 +16,7 @@ public class SistefactelAPPUrl {
     public static final String GET_CLIENTE= "/getById/{id}";
     public static final String LIST_ALL_CLIENTE="/listAll";
     public static final String PASSWORD_RECOVER_PAGE="recoverPasswordPage";
+    public static final String RENIEC_CLIENTE="/reniecCliente";
     //Producto
     public static final String PRODUCTO_ROOT= "/producto";
     public static final String PRODUCTOE_VIEW_ADD= "/addCliente";

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
+	layout:decorate="~{layout}">
 
 <body>
+
 	<th:block layout:fragment="tittle">Listar Clientes</th:block>
-	<th:block layout:fragment="content">
+	<div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-8">
 				<button type="button" class="btn bg-blue btn-labeled heading-btn"
@@ -141,7 +142,7 @@
 				</div>
 			</div>
 		</div>
-	</th:block>
+	</div>
 	<th:block layout:fragment="scripts">
 		<script th:inline="javascript">
         var dtTable;
