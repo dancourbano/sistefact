@@ -60,9 +60,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente getClienteByDni(String dni) {
     	String uri="http://aplicaciones007.jne.gob.pe/srop_publico/Consulta/api/AfiliadoApi/GetNombresCiudadano";
-    	 Map<String, String> params = new HashMap<String, String>();
-    	    params.put("CODDNI", "47312820");
-        RestTemplate restTemplate = new RestTemplate();
+    	RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();  
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         headers.add("Content-Type", "application/json;chartset=utf-8");
@@ -74,6 +72,22 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente=separateDataRest(result.getData());
         return cliente;
     }
+    public Cliente getClienteByRUC(String dni) {
+    	String uri="http://aplicaciones007.jne.gob.pe/srop_publico/Consulta/api/AfiliadoApi/GetNombresCiudadano";
+   	 Map<String, String> params = new HashMap<String, String>();
+   	    params.put("CODDNI", "47312820");
+       RestTemplate restTemplate = new RestTemplate();
+       HttpHeaders headers = new HttpHeaders();  
+       headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+       headers.add("Content-Type", "application/json;chartset=utf-8");
+       headers.add("Requestverificationtoken", "30OB7qfO2MmL2Kcr1z4S0ttQcQpxH9pDUlZnkJPVgUhZOGBuSbGU4qM83JcSu7DZpZw-IIIfaDZgZ4vDbwE5-L9EPoBIHOOC1aSPi4FS_Sc1:clDOiaq7mKcLTK9YBVGt2R3spEU8LhtXEe_n5VG5VLPfG9UkAQfjL_WT9ZDmCCqtJypoTD26ikncynlMn8fPz_F_Y88WFufli38cUM-24PE1");
+       ClienteDto clienteDto=new ClienteDto();
+       clienteDto.setCODDNI(dni);
+       HttpEntity<ClienteDto> entity = new HttpEntity<ClienteDto>(clienteDto, headers);
+       ClienteDto result = restTemplate.postForObject( uri, entity, ClienteDto.class);
+       Cliente cliente=separateDataRest(result.getData());
+       return cliente;
+   }
     private Cliente separateDataRest(String data) {
     	Cliente clienteNuevo=new Cliente();
     	String[] listadoData=data.split("[|]");    	
