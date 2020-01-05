@@ -24,8 +24,13 @@ public class ClienteRestController {
 	@Autowired
 	ClienteService clienteService;
 	@PostMapping(path= "/getByDNI",headers = "Accept=application/json")
-	public Cliente save(@Valid @RequestBody Cliente Cliente, BindingResult result) {
+	public Cliente getByDni(@Valid @RequestBody Cliente Cliente, BindingResult result) {
 		return clienteService.getClienteByDni(Cliente.getIdentificador());	
+		
+	}
+	@PostMapping(path= "/getByRUC",headers = "Accept=application/json")
+	public Cliente getByRuc(@Valid @RequestBody Cliente Cliente, BindingResult result) {
+		return clienteService.getClienteByRUC(Cliente.getIdentificador());	
 		
 	}
 }
