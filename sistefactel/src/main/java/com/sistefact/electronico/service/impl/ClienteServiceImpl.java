@@ -79,7 +79,8 @@ public class ClienteServiceImpl implements ClienteService {
    	   RestTemplate restTemplate = new RestTemplate();
    	   //Obtener numero Random
 	   RandomDto randomDto=new RandomDto();	   
-	   ResponseEntity<String> cadena = restTemplate.getForEntity( uriRandom, String.class);
+	   ResponseEntity<RandomDto> cadena = restTemplate.getForEntity( uriRandom, RandomDto.class);
+	   System.out.println(cadena);
 	   //Obtener numero RUC
 	   HttpHeaders headers = new HttpHeaders();  
 	   headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
