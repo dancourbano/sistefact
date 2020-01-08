@@ -74,18 +74,11 @@ public class ClienteServiceImpl implements ClienteService {
         return cliente;
     }
     public Cliente getClienteByRUC(String ruc) {
-       String uriConsulta="http://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/jcrS00Alias";
-   	   String uriRandom="http://e-consultaruc.sunat.gob.pe/cl-ti-itmrconsruc/captcha?accion=random";
-   	   RestTemplate restTemplate = new RestTemplate();
-   	   //Obtener numero Random
-	   RandomDto randomDto=new RandomDto();	   
-	   ResponseEntity<RandomDto> cadena = restTemplate.getForEntity( uriRandom, RandomDto.class);
-	   System.out.println(cadena);
+       String uriConsulta="https://api.sunat.cloud/ruc/";   	   
+   	   RestTemplate restTemplate = new RestTemplate();   	      
 	   //Obtener numero RUC
-	   HttpHeaders headers = new HttpHeaders();  
-	   headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-	   headers.add("Content-Type", "application/json;chartset=utf-8");
-	   ResponseEntity<ClienteDto> clienteDto = restTemplate.getForEntity( uriRandom, ClienteDto.class);
+	   String consultaFormada=uriConsulta.concat(ruc);	  
+	   ResponseEntity<ClienteDto> clienteDto = restTemplate.getForEntity( consultaFormada, ClienteDto.class);
 	   Cliente cliente=new Cliente();
        return cliente;
    }
