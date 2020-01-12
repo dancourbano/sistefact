@@ -21,11 +21,11 @@ function saveFunction(saveURL,arrayData,idElement) {
         var id = 0;
         TypeJson='post';
     }	
-    sUrl = saveURL + id;
+    sUrl = saveURL;
      
     
     $.ajax({
-        url: saveURL,
+        url: sUrl,
         type: TypeJson,
         dataType: 'json',
         contentType: 'application/json',
@@ -89,6 +89,28 @@ function showDetailFunction(getByURL,id, functionSetData) {
         url: url,
         dataType: 'json',
         type: 'GET',
+        before: function () {
+
+        },
+        success: function (data) {
+        	functionSetData(data);
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.statusText);
+        }
+    });
+    $('#modal_default').modal();
+}
+function showDetailFunctionPost(getByURL,arrayData, functionSetData) {
+
+    $.ajax({
+        url: getByURL,
+        dataType: 'json',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(arrayData),
         before: function () {
 
         },

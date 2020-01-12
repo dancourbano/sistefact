@@ -4,6 +4,10 @@ public class ClienteDto {
 	private String CODDNI;
 	private String Data;
 	private String razon_social;
+	private String ruc;
+	private String nombre_comercial;
+	private String domicilio_fiscal;
+	
 	public String getCODDNI() {
 		return CODDNI;
 	}
@@ -23,6 +27,24 @@ public class ClienteDto {
 	}
 	public void setRazon_social(String razon_social) {
 		this.razon_social = razon_social;
+	}
+	public String getRuc() {
+		return ruc;
+	}
+	public void setRuc(String ruc) {
+		this.ruc = ruc;
+	}
+	public String getNombre_comercial() {
+		return nombre_comercial;
+	}
+	public void setNombre_comercial(String nombre_comercial) {
+		this.nombre_comercial = nombre_comercial;
+	}
+	public String getDomicilio_fiscal() {
+		return domicilio_fiscal;
+	}
+	public void setDomicilio_fiscal(String domicilio_fiscal) {
+		this.domicilio_fiscal = domicilio_fiscal;
 	}
 	
 	

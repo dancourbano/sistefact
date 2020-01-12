@@ -428,7 +428,7 @@
     </div>
 </div>
 <div class="layout-main">
-    <th:block layout:include="fragments/menu"/>
+    <div layout:insert="menu"/></div>
     <div class="layout-content">
         <div class="container-fluid">
             <div class="row">
@@ -439,7 +439,7 @@
                             <div class="col-md-12">
                                 <div class="panel panel-flat">
                                     <div class="panel-heading">
-                                        <h6 class="panel-title"><th:block layout:fragment="tittle"/></h6>
+                                        <h6 class="panel-title"><div layout:fragment="tittle"></div></h6>
 
                                         <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
 
@@ -463,7 +463,7 @@
         </div>
     </div>
     <div class="layout-footer">
-        <th:block layout:include="fragments/footer"/>
+        <div layout:insert="footer"></div>
 
     </div>
 </div>

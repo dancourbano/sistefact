@@ -29,9 +29,8 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente getById(Long id) {
-        return clienteRepo.getOne(id);
-    }
-
+        return clienteRepo.findById(id).get();
+    }    
     @Override
     public Cliente findByNombreAndApellido(String nombre,String apellido) {
         return clienteRepo.findByNombreAndApellido(nombre,apellido);
@@ -79,7 +78,7 @@ public class ClienteServiceImpl implements ClienteService {
 	   //Obtener numero RUC
 	   String consultaFormada=uriConsulta.concat(ruc);	  
 	   ResponseEntity<ClienteDto> clienteDto = restTemplate.getForEntity( consultaFormada, ClienteDto.class);
-	   Cliente cliente=new Cliente();
+	   Cliente cliente=setDataRuc(clienteDto.getBody());
        return cliente;
    }
     private Cliente separateDataRest(String data) {
@@ -88,5 +87,12 @@ public class ClienteServiceImpl implements ClienteService {
     	clienteNuevo.setApellido(listadoData[0]+" "+listadoData[1]);
     	clienteNuevo.setNombre(listadoData[2]);
     	return clienteNuevo;
+    }
+    private Cliente setDataRuc(ClienteDto clienteDto) {
+    	Cliente cliente=new Cliente();
+    	cliente.setIsRuc(1);
+    	cliente.setNombre(clienteDto.getRazon_social());
+    	cliente.setDireccion(clienteDto.getDomicilio_fiscal());
+    	return cliente;
     }
 }

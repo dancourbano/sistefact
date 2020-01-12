@@ -4,8 +4,10 @@ package com.sistefact.electronico.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -13,12 +15,15 @@ import java.util.Date;
 public class Cliente {
 
     @Id
+    @Column(name="id_cliente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
    
     private String nombre;
     @NotBlank(message = " Apellido no puede ser vacio")
     private String apellido;
+    
+    @Email
     @NotBlank(message = "Correo no puede ser vacio")
     private String email;
     @Column(name="create_at")
@@ -38,6 +43,8 @@ public class Cliente {
     private String company;
     private String direccion;
     private String ciudad;
+    
+        
     @Column(name="isruc")
     private int isRuc;
     @PrePersist

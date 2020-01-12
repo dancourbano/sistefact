@@ -50,9 +50,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="col-lg-3 control-label">DNI/RUC</label>
-										<div class="col-lg-9">
+										<div class="col-lg-6">
 											<input type="text" name="identificador" id="identificador"
 												class="form-control" />
+
+										</div>
+										<div class="col-lg-3">
+											<button  type="button" class="btn btn-info" onclick="mostrarSunat()">Sunat</button>
 
 										</div>
 									</div>
@@ -147,10 +151,10 @@
 		<script th:inline="javascript">
         var dtTable;
         var urlContext=/*[[@{/}]]*/;
-        var saveURL = urlContext+"/cliente/";
-        var listAllURL = urlContext+'/cliente/listAll';
-        var getByURL = urlContext+"/cliente/getById/";
-        var deleteURL = urlContext+"/cliente/delete/";
+        var saveURL = urlContext+"cliente";
+        var listAllURL = urlContext+'cliente/listAll';
+        var getByURL = urlContext+"cliente/getById/";
+        var deleteURL = urlContext+"cliente/delete/";
        
         function arrayDatatable(elem){
         	 var array=[
@@ -211,7 +215,19 @@
 			showDetailFunction(getByURL,id, functionSetData)
 		}
          
-        
+		 function functionSetDataPorIdentificadorCliente(data){
+        	 
+	        	$("#id").val(data.idCliente);
+		        $("#nombre").val(data.nombre);
+		        $("#apellidos").val(data.apellido);
+		        $("#correo").val(data.email);
+		        $("#identificador").val(data.identificador);
+		        $("#company").val(data.company);
+		        $("#telefono").val(data.telefono);
+		        $("#ciudad").val(data.ciudad),
+		        $("#status").val(data.status),
+		        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+	        }
 
         function deleteData(id) {
         	deleteElement("el cliente",id,deleteURL,showList,resetFormElement)
@@ -224,6 +240,14 @@
         }
         function resetFormElement() {
             resetForm("frmModalCliente");
+        }
+        
+        function mostrarSunat(){
+        	var listDataSunat = urlContext+'cliente/getByRUC';
+        	var arrayData={                    
+                    identificador: $("#identificador").val()
+            }
+        	showDetailFunctionPost(listDataSunat,arrayData, functionSetDataPorIdentificadorCliente)
         }
     </script>
 

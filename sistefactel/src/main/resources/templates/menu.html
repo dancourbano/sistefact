@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
 
 <head>
 
 </head>
-<body>
+
 
 <!-- Navbar -->
 
-    <div class="layout-sidebar" th:fragment="menu">
+    <div class="layout-sidebar" layout:fragment="menu" >
         <div class="layout-sidebar-backdrop"></div>
         <div class="layout-sidebar-body">
             <div class="custom-scrollbar">
@@ -83,5 +85,5 @@
             </div>
         </div>
     </div>
-</body>
+
 </html>
