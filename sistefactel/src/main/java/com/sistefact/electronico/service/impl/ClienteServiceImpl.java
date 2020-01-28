@@ -1,12 +1,22 @@
 package com.sistefact.electronico.service.impl;
 
 
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.TrustStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,17 +25,28 @@ import com.sistefact.electronico.dto.RandomDto;
 import com.sistefact.electronico.models.Cliente;
 import com.sistefact.electronico.repository.ClienteRepository;
 import com.sistefact.electronico.service.ClienteService;
-
+import java.security.*;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+
 @Service
 public class ClienteServiceImpl implements ClienteService {
     @Autowired
     private ClienteRepository clienteRepo;
 
+    private final RestTemplate restTemplate;
 
+    public ClienteServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Override
     public Cliente getById(Long id) {
@@ -56,24 +77,62 @@ public class ClienteServiceImpl implements ClienteService {
     public List<Cliente> getAll() {
         return (List<Cliente>) clienteRepo.findAll();
     }
-    
+   
     @Override
     public Cliente getClienteByDni(String dni) {
-    	String uri="http://aplicaciones007.jne.gob.pe/srop_publico/Consulta/api/AfiliadoApi/GetNombresCiudadano";
-    	RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();  
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        headers.add("Content-Type", "application/json;chartset=utf-8");
-        headers.add("Requestverificationtoken", "30OB7qfO2MmL2Kcr1z4S0ttQcQpxH9pDUlZnkJPVgUhZOGBuSbGU4qM83JcSu7DZpZw-IIIfaDZgZ4vDbwE5-L9EPoBIHOOC1aSPi4FS_Sc1:clDOiaq7mKcLTK9YBVGt2R3spEU8LhtXEe_n5VG5VLPfG9UkAQfjL_WT9ZDmCCqtJypoTD26ikncynlMn8fPz_F_Y88WFufli38cUM-24PE1");
-        ClienteDto clienteDto=new ClienteDto();
-        clienteDto.setCODDNI(dni);
-        HttpEntity<ClienteDto> entity = new HttpEntity<ClienteDto>(clienteDto, headers);
-        ClienteDto result = restTemplate.postForObject( uri, entity, ClienteDto.class);
-        Cliente cliente=separateDataRest(result.getData());
-        return cliente;
+    	String uri="https://dniruc.apisperu.com/api/v1/dni/";
+    	String token="?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhbmllbGNhbS5pbmZAZ21haWwuY29tIn0.VzM5FN1-zMinfqMTmwPY-2J1I9qCft-MyasuYO5LuJ8";
+    	
+        String concatenadoURL= uri.concat(dni).concat(token);
+       
+        Cliente cliente=new Cliente();
+				
+			    
+				
+			
+			    TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+
+			    SSLContext sslContext;
+				try {
+					sslContext = org.apache.http.ssl.SSLContexts.custom()
+					        .loadTrustMaterial(null, acceptingTrustStrategy)
+					        .build();
+					SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+
+				    CloseableHttpClient httpClient = HttpClients.custom()
+				            .setSSLSocketFactory(csf)
+				            .build();
+
+				    HttpComponentsClientHttpRequestFactory requestFactory =
+				            new HttpComponentsClientHttpRequestFactory();
+
+				    requestFactory.setHttpClient(httpClient);
+
+				    RestTemplate restTemplate = new RestTemplate(requestFactory);
+				    ResponseEntity<ClienteDto> restTemplate1=restTemplate.exchange(concatenadoURL, HttpMethod.GET, null, ClienteDto.class);
+				    
+				    cliente=convertClienteDtoToCliente(restTemplate1.getBody());
+				
+				
+				
+				} catch (KeyManagementException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (KeyStoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			    
+		
+		return cliente;
+        
     }
     public Cliente getClienteByRUC(String ruc) {
-       String uriConsulta="https://api.sunat.cloud/ruc/";   	   
+       String uriConsulta="https://dniruc.apisperu.com/api/v1/ruc/";   	   
    	   RestTemplate restTemplate = new RestTemplate();   	      
 	   //Obtener numero RUC
 	   String consultaFormada=uriConsulta.concat(ruc);	  
@@ -81,11 +140,12 @@ public class ClienteServiceImpl implements ClienteService {
 	   Cliente cliente=setDataRuc(clienteDto.getBody());
        return cliente;
    }
-    private Cliente separateDataRest(String data) {
+    private Cliente convertClienteDtoToCliente(ClienteDto clienteDto) {
     	Cliente clienteNuevo=new Cliente();
-    	String[] listadoData=data.split("[|]");    	
-    	clienteNuevo.setApellido(listadoData[0]+" "+listadoData[1]);
-    	clienteNuevo.setNombre(listadoData[2]);
+    	  	
+    	clienteNuevo.setApellido(clienteDto.getApellidoPaterno()+" "+clienteDto.getApellidoMaterno());
+    	clienteNuevo.setNombre(clienteDto.getNombres());
+    	clienteNuevo.setIdentificador(clienteDto.getDni());
     	return clienteNuevo;
     }
     private Cliente setDataRuc(ClienteDto clienteDto) {
