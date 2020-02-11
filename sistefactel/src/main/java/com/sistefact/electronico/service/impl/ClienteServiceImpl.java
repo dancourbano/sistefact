@@ -78,7 +78,7 @@ public class ClienteServiceImpl implements ClienteService {
 	   //Obtener numero RUC
 	   String consultaFormada=uriConsulta.concat(ruc);	  
 	   ResponseEntity<ClienteDto> clienteDto = restTemplate.getForEntity( consultaFormada, ClienteDto.class);
-	   Cliente cliente=setDataRuc(clienteDto.getBody());
+	   Cliente cliente=setDataRuc(clienteDto.getBody(),ruc);
        return cliente;
    }
     private Cliente separateDataRest(String data) {
@@ -88,11 +88,13 @@ public class ClienteServiceImpl implements ClienteService {
     	clienteNuevo.setNombre(listadoData[2]);
     	return clienteNuevo;
     }
-    private Cliente setDataRuc(ClienteDto clienteDto) {
+    private Cliente setDataRuc(ClienteDto clienteDto,String identificador) {
     	Cliente cliente=new Cliente();
     	cliente.setIsRuc(1);
     	cliente.setNombre(clienteDto.getRazon_social());
     	cliente.setDireccion(clienteDto.getDomicilio_fiscal());
+    	cliente.setIdentificador(identificador);
+    	cliente.setStatus(1);
     	return cliente;
     }
 }

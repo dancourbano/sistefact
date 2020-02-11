@@ -207,26 +207,23 @@
 	        $("#identificador").val(data.identificador);
 	        $("#company").val(data.company);
 	        $("#telefono").val(data.telefono);
-	        $("#ciudad").val(data.ciudad),
-	        $("#status").val(data.status),
-	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+	        $("#ciudad").val(data.ciudad);
+	        $("#status").val(data.status);
+	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc));
+	        $("#direccion").val(data.direccion);
         }
 		function showDetail(id){			
 			showDetailFunction(getByURL,id, functionSetData)
 		}
          
-		 function functionSetDataPorIdentificadorCliente(data){
-        	 
-	        	$("#id").val(data.idCliente);
+		 function functionSetDataPorIdentificadorCliente(data){        	    	        	
 		        $("#nombre").val(data.nombre);
-		        $("#apellidos").val(data.apellido);
-		        $("#correo").val(data.email);
-		        $("#identificador").val(data.identificador);
-		        $("#company").val(data.company);
-		        $("#telefono").val(data.telefono);
-		        $("#ciudad").val(data.ciudad),
-		        $("#status").val(data.status),
-		        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+		        $("#apellidos").val(data.apellido);		        
+		        $("#status").val(data.status);
+		        $("#isRuc").prop('checked', integerToBoolean(data.isRuc));
+		        if(data.direccion!=null){
+		        	$("#direccion").val(data.direccion);
+		        }
 	        }
 
         function deleteData(id) {
@@ -243,7 +240,12 @@
         }
         
         function mostrarSunat(){
-        	var listDataSunat = urlContext+'cliente/getByRUC';
+        	var listDataSunat = urlContext+'getByRUC';
+        	if($("#identificador").val().length>8){
+        		var listDataSunat = urlContext+'getByRUC';
+        	}else{
+        		var listDataSunat = urlContext+'getByDNI';
+        	}
         	var arrayData={                    
                     identificador: $("#identificador").val()
             }

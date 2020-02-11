@@ -98,10 +98,6 @@ public class ClienteController {
 		resultAjax.setMessage("Se Eliminó con éxito");
         return ResponseEntity.status(HttpStatus.OK).body(resultAjax);
 	}
-	@PostMapping(path= "/getByRUC",headers = "Accept=application/json")
-	public Cliente getByRuc(@Valid @RequestBody Cliente Cliente, BindingResult result) {
-		return clienteService.getClienteByRUC(Cliente.getIdentificador());	
-		
-	}
+	
 		
 }

@@ -107,14 +107,14 @@ function showDetailFunctionPost(getByURL,arrayData, functionSetData) {
     $.ajax({
         url: getByURL,
         dataType: 'json',
-        type: 'POST',
-        dataType: 'json',
+        type: 'POST',        
         contentType: 'application/json',
         data: JSON.stringify(arrayData),
         before: function () {
 
         },
         success: function (data) {
+        	console.log("data"+data);
         	functionSetData(data);
             
         },
