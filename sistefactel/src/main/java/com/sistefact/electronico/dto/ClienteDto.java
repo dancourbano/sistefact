@@ -10,6 +10,8 @@ public class ClienteDto {
 	private String nombre_comercial;
 	private String domicilio_fiscal;
 	private String dni;
+	@JsonProperty
+	private String nombreComercial;
 	@JsonProperty	
 	private String nombres;
 	@JsonProperty
@@ -77,6 +79,12 @@ public class ClienteDto {
 	}
 	public void setApellidoMaterno(String apellidoMaterno) {
 		this.apellidoMaterno = apellidoMaterno;
+	}
+	public String getNombreComercial() {
+		return nombreComercial;
+	}
+	public void setNombreComercial(String nombreComercial) {
+		this.nombreComercial = nombreComercial;
 	}
 	
 	

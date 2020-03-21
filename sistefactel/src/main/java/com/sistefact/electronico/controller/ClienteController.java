@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,7 +32,9 @@ import javax.validation.Valid;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 @Controller
 @RequestMapping("/cliente")
@@ -58,7 +62,7 @@ public class ClienteController {
     }
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AjaxResponseBody> save(@Valid @RequestBody Cliente Cliente, BindingResult result) {
+	public ResponseEntity<AjaxResponseBody> save(@Valid @RequestBody Cliente Cliente, Errors errores) {
 		Cliente clienteSave = new Cliente();
 		clienteSave = clienteService.save(Cliente);
 		AjaxResponseBody resultAjax = new AjaxResponseBody();
@@ -76,7 +80,18 @@ public class ClienteController {
 		
 
 	}
-	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationExceptions(
+	MethodArgumentNotValidException ex) {
+	Map<String, String> errors = new HashMap<>();
+	ex.getBindingResult().getAllErrors().forEach((error) -> {
+	String fieldName = ((FieldError) error).getField();
+	String errorMessage = error.getDefaultMessage();
+	errors.put(fieldName, errorMessage);
+	});
+	return errors;
+	}
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AjaxResponseBody> update(@Valid @RequestBody Cliente Cliente) {
 		clienteService.update(Cliente);

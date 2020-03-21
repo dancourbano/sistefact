@@ -111,7 +111,7 @@ public class ClienteServiceImpl implements ClienteService {
 				    RestTemplate restTemplate = new RestTemplate(requestFactory);
 				    ResponseEntity<ClienteDto> restTemplate1=restTemplate.exchange(concatenadoURL, HttpMethod.GET, null, ClienteDto.class);
 				    
-				    cliente=convertClienteDtoToCliente(restTemplate1.getBody());
+				    cliente=convertClienteDtoToCliente(restTemplate1.getBody(),false);
 				
 				
 				
@@ -135,17 +135,62 @@ public class ClienteServiceImpl implements ClienteService {
        String uriConsulta="https://dniruc.apisperu.com/api/v1/ruc/";   	   
    	   RestTemplate restTemplate = new RestTemplate();   	      
 	   //Obtener numero RUC
-	   String consultaFormada=uriConsulta.concat(ruc);	  
-	   ResponseEntity<ClienteDto> clienteDto = restTemplate.getForEntity( consultaFormada, ClienteDto.class);
-	   Cliente cliente=setDataRuc(clienteDto.getBody(),ruc);
+   	   String token="?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRhbmllbGNhbS5pbmZAZ21haWwuY29tIn0.VzM5FN1-zMinfqMTmwPY-2J1I9qCft-MyasuYO5LuJ8";
+	   String consultaFormada=uriConsulta.concat(ruc).concat(token);
+	   Cliente cliente=new Cliente();
+		
+	    
+		
+		
+	    TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
+
+	    SSLContext sslContext;
+		try {
+			sslContext = org.apache.http.ssl.SSLContexts.custom()
+			        .loadTrustMaterial(null, acceptingTrustStrategy)
+			        .build();
+			SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(sslContext);
+
+		    CloseableHttpClient httpClient = HttpClients.custom()
+		            .setSSLSocketFactory(csf)
+		            .build();
+
+		    HttpComponentsClientHttpRequestFactory requestFactory =
+		            new HttpComponentsClientHttpRequestFactory();
+
+		    requestFactory.setHttpClient(httpClient);
+
+		    restTemplate = new RestTemplate(requestFactory);
+		    ResponseEntity<ClienteDto> restTemplate1=restTemplate.exchange(consultaFormada, HttpMethod.GET, null, ClienteDto.class);
+		     
+		    cliente=convertClienteDtoToCliente(restTemplate1.getBody(),true);
+	    
+	   
+		} catch (KeyManagementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (KeyStoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
        return cliente;
    }
-    private Cliente convertClienteDtoToCliente(ClienteDto clienteDto) {
-    	Cliente clienteNuevo=new Cliente();
-    	  	
-    	clienteNuevo.setApellido(clienteDto.getApellidoPaterno()+" "+clienteDto.getApellidoMaterno());
-    	clienteNuevo.setNombre(clienteDto.getNombres());
-    	clienteNuevo.setIdentificador(clienteDto.getDni());
+    private Cliente convertClienteDtoToCliente(ClienteDto clienteDto, boolean isRuc) {
+    	Cliente clienteNuevo=new Cliente(); 
+    	if(isRuc) {
+    		clienteNuevo.setApellido("");
+    		clienteNuevo.setNombre(clienteDto.getNombreComercial());
+    		clienteNuevo.setIdentificador(clienteDto.getRuc());
+    		clienteNuevo.setIsRuc(1);
+    	}else {
+    		clienteNuevo.setApellido(clienteDto.getApellidoPaterno()+" "+clienteDto.getApellidoMaterno());
+    		clienteNuevo.setNombre(clienteDto.getNombres());
+    		clienteNuevo.setIdentificador(clienteDto.getDni());
+    		clienteNuevo.setIsRuc(0);
+    	}
     	return clienteNuevo;
     }
     private Cliente setDataRuc(ClienteDto clienteDto,String identificador) {
