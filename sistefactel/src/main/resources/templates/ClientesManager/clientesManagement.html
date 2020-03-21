@@ -247,12 +247,16 @@
         }
         
         function mostrarSunat(){
+<<<<<<< HEAD
         	var listDataSunat = urlContext+'getByRUC';
         	if($("#identificador").val().length>8){
         		var listDataSunat = urlContext+'getByRUC';
         	}else{
         		var listDataSunat = urlContext+'getByDNI';
         	}
+=======
+        	var listDataSunat = urlContext+'clienteRest/getByDNI';
+>>>>>>> branch 'master' of https://github.com/dancourbano/sistefact.git
         	var arrayData={                    
                     identificador: $("#identificador").val()
             }
