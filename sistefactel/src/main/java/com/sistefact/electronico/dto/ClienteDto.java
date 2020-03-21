@@ -1,5 +1,7 @@
 package com.sistefact.electronico.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ClienteDto {
 	private String CODDNI;
 	private String Data;
@@ -7,7 +9,13 @@ public class ClienteDto {
 	private String ruc;
 	private String nombre_comercial;
 	private String domicilio_fiscal;
-	
+	private String dni;
+	@JsonProperty	
+	private String nombres;
+	@JsonProperty
+	private String apellidoPaterno;
+	@JsonProperty
+	private String apellidoMaterno;
 	public String getCODDNI() {
 		return CODDNI;
 	}
@@ -45,6 +53,30 @@ public class ClienteDto {
 	}
 	public void setDomicilio_fiscal(String domicilio_fiscal) {
 		this.domicilio_fiscal = domicilio_fiscal;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getNombres() {
+		return nombres;
+	}
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
 	
 	

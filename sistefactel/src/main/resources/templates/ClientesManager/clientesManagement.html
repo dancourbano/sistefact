@@ -216,10 +216,17 @@
 			showDetailFunction(getByURL,id, functionSetData)
 		}
          
-		 function functionSetDataPorIdentificadorCliente(data){        	    	        	
+		 function functionSetDataPorIdentificadorCliente(data){
+        	 
+	        	$("#id").val(data.idCliente);
 		        $("#nombre").val(data.nombre);
-		        $("#apellidos").val(data.apellido);		        
-		        $("#status").val(data.status);
+		        $("#apellidos").val(data.apellido);
+		        $("#correo").val(data.email);
+		        $("#identificador").val(data.identificador);
+		        $("#company").val(data.company);
+		        $("#telefono").val(data.telefono);
+		        $("#ciudad").val(data.ciudad);
+		        $("#status").val(data.status);		        
 		        $("#isRuc").prop('checked', integerToBoolean(data.isRuc));
 		        if(data.direccion!=null){
 		        	$("#direccion").val(data.direccion);
