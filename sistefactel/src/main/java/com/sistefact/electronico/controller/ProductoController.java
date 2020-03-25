@@ -104,4 +104,5 @@ public class ProductoController {
 		resultAjax.setMessage("Se Eliminó con éxito");
         return ResponseEntity.status(HttpStatus.OK).body(resultAjax);
 	}
+	
 }

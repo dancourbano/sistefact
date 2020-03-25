@@ -202,4 +202,8 @@ public class ClienteServiceImpl implements ClienteService {
     	cliente.setStatus(1);
     	return cliente;
     }
+    @Override
+    public List<Cliente> getCustomersByUser(Long userId) {
+        return clienteRepo.findByUser_Id(userId);
+    }
 }

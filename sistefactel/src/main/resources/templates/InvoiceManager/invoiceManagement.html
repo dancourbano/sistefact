@@ -3,13 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <body>
-	<th:block layout:fragment="tittle">Listar Clientes</th:block>
+	<th:block layout:fragment="tittle">Listar Comprobantes</th:block>
 	<th:block layout:fragment="content">
 		<div class="row">
 			<div class="col-md-8">
 				<button type="button" class="btn bg-blue btn-labeled heading-btn"
 					onclick="create()">
-					<i class="icon-plus3 position-left"></i> Crear Factura
+					<i class="icon-plus3 position-left"></i> Crear Comprobante
 				</button>
 			</div>
 		</div>
@@ -42,17 +42,20 @@
 		<script th:inline="javascript">
         var dtTable;
         var urlContext=/*[[@{/}]]*/;
-        var saveURL = urlContext+"/cliente/";
-        var listAllURL = urlContext+'/cliente/listAll';
-        var getByURL = urlContext+"/cliente/getById/";
-        var deleteURL = urlContext+"/cliente/delete/";
+        var saveURL = urlContext+"/invoice/";
+        var listAllURL = urlContext+'/invoice/listAll';
+        var getByURL = urlContext+"/invoice/getById/";
+        var deleteURL = urlContext+"/invoice/delete/";
        
         function arrayDatatable(elem){
         	 var array=[
                  elem.idCliente,
                  elem.nombre,
+                 "",
+                 "",
                  elem.apellido,
                  elem.email,
+                 "",
                  dropDown(elem.idCliente)];
         	return array;
         }

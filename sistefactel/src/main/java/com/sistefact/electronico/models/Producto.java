@@ -2,6 +2,7 @@ package com.sistefact.electronico.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -20,6 +21,11 @@ public class Producto  {
     private String estado;
     private Long stock;
     private Double precio;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    private User user;
+    
     @Column(updatable= false)
     @JsonSerialize(using = ToStringSerializer.class)
     private LocalDateTime createAt;
@@ -101,6 +107,16 @@ public class Producto  {
 	}
 	public void setUpdateAt(LocalDateTime updateAt) {
 		this.updateAt = updateAt;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

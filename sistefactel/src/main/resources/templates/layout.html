@@ -6,8 +6,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,700"/>
 <link rel="stylesheet" th:href="@{/css/vendor.min.css}"/>
 <link rel="stylesheet" th:href="@{/css/sweetalert.css}"/>
+<link rel="stylesheet" th:href="@{/css/select2.min.css}"/>
 <link rel="stylesheet" th:href="@{/css/elephant.min.css}"/>
 <link rel="stylesheet" th:href="@{/css/application.min.css}"/>
+
 <body class="layout layout-header-fixed">
 <div class="layout-header">
     <div class="navbar navbar-default">
@@ -700,7 +702,10 @@
         ></script>
 <script th:src="@{/js/taxistema.utils.js}"></script>
 <script th:src="@{/js/crud.js}"></script>
-<th:block layout:fragment="scripts"/>
+<script th:src="@{/js/select2.full.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+ 
+<div layout:fragment="scripts"></div>
 <script th:src="@{/js/vendor.min.js}"></script>
 <script th:src="@{/js/elephant.min.js}"></script>
 <script th:src="@{/js/sweetalert.min.js}"></script>
