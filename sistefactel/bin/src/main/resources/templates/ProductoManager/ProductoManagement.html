@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<meta charset="utf-8"></meta>
+<body>
+	<th:block layout:fragment="tittle">Listar Productos</th:block>
+	<th:block layout:fragment="content">
+		<div class="row">
+			<div class="col-md-8">
+				<button type="button" class="btn bg-blue btn-labeled heading-btn"
+					onclick="create()">
+					<i class="icon-plus3 position-left"></i> Agregar
+				</button>
+			</div>
+		</div>
+		<br />
+
+
+		<table id="dtElement"
+			class="table table-bordered datatable-save-state">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Descripcion</th>
+					<th>Precio</th>
+					<th>Estado</th>
+					<th>Codigo</th>
+					<th>Stock Actual</th>
+					<th class="text-center">Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+
+		<div id="modal_default" class="modal fade">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h5 class="modal-title">Producto</h5>
+					</div>
+
+					<div class="modal-body">
+
+						<form id="frmModalCliente" class="form-horizontal">
+							<div class="row">
+								<div class="col-md-6">
+									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Descripcion</label>
+										<div class="col-lg-9">
+											<input type="text" name="descripcion" id="descripcion"
+												class="form-control" /> <input type="hidden" name="id"
+												id="id" /> 
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Precio</label>
+										<div class="col-lg-9">
+											<input type="text" name="precio" id="precio"
+												class="form-control" />
+										</div>
+									</div>								
+									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Codigo</label>
+										<div class="col-lg-9">
+											<input type="text" name="codigo" id="codigo"
+												class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Estado</label>
+										<div class="col-lg-9">
+											<select  name="estado" id="estado"
+												class="form-control">
+											<option value="1">Activo</option>
+											<option value="0">Inactivo</option>	
+											</select>
+										</div>
+									</div>								
+									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Stock</label>
+										<div class="col-lg-9">
+											<input type="text" name="stock" id="stock"
+												class="form-control" /> 
+										</div>
+									</div>
+								</div>
+								 
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+						<button type="button" onclick="save()" class="btn btn-primary">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	<th:block layout:fragment="scripts">
+		<script th:inline="javascript">
+        var dtTable;
+        var urlContext=/*[[@{/}]]*/;
+        var saveURL = urlContext+"/producto/";
+        var listAllURL = urlContext+'/producto/listAll';
+        var getByURL = urlContext+"/producto/getById/";
+        var deleteURL = urlContext+"/producto/delete/";
+       	function printEstado(estado){
+       		/*<![CDATA[*/
+       		if(estado=="1"){
+       			return "<div class=\'badge badge-success\'>Activo</div>";
+       		}else if(estado=="0"){
+       			return "<div class=\'badge badge-danger\'>Inactivo</div>";
+       		}else{
+       			return "";
+       		}
+       		/*]]>*/
+       	}
+        function arrayDatatable(elem){
+        	 var array=[
+                 elem.idProducto,
+                 elem.descripcion,
+                 elem.precio,
+                 printEstado(elem.estado),
+                 elem.codigo,
+                 elem.stock,
+                 dropDown(elem.idProducto)];
+        	return array;
+        }
+        $(document).ready(function () {
+        	dtTable = $("#dtElement").DataTable({                              
+                searching: !1
+            });
+            showList();
+        });
+        
+       	function save(){	 
+       		
+       		var arrayData={
+                    idProducto: $("#id").val()==""?0:$("#id").val(),
+                    descripcion: $("#descripcion").val(),
+                    precio: $("#precio").val(),
+                    codigo: $("#codigo").val(),
+                    estado: $("#estado").val(),
+                    stock: $("#stock").val()
+                };
+       		saveFunction(saveURL,arrayData,arrayData.idProducto);
+       	}
+		function showList(){
+			showListAllFunction(listAllURL,arrayDatatable,dtTable);
+		}       
+		
+        function create() {
+        	resetFormElement();
+            $("#id").val(0);
+            $('#modal_default').modal();
+        }
+        function functionSetData(data){
+        	 
+        	$("#id").val(data.idProducto);
+	        $("#descripcion").val(data.descripcion);
+	        $("#precio").val(data.precio);
+	        $("#codigo").val(data.codigo);
+	        $("#estado").val(data.estado);
+	        $("#stock").val(data.stock);
+	         
+        }
+		function showDetail(id){			
+			showDetailFunction(getByURL,id, functionSetData)
+		}
+         
+        
+
+        function deleteData(id) {
+        	deleteElement("el producto",id,deleteURL,showList,resetFormElement)
+        }
+        function setValueCheckType(id){
+            return $(id).prop("checked")? 1:0;             
+        }
+        function integerToBoolean(value){
+            return (parseInt(value)==1)?true:false;            
+        }
+        function resetFormElement() {
+            resetForm("frmModalCliente");
+        }
+    </script>
+
+	</th:block>
+</body>
+</html>
