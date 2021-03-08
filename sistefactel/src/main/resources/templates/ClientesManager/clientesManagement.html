@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
+	layout:decorate="~{layout}">
 
 <body>
+
 	<th:block layout:fragment="tittle">Listar Clientes</th:block>
-	<th:block layout:fragment="content">
+	<div layout:fragment="content">
 		<div class="row">
 			<div class="col-md-8">
 				<button type="button" class="btn bg-blue btn-labeled heading-btn"
@@ -48,40 +49,45 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-lg-3 control-label">DNI/RUC</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3  col-sm-2 control-label">DNI/RUC</label>
+										<div class="col-lg-6 col-sm-7">
 											<input type="text" name="identificador" id="identificador"
 												class="form-control" />
 
 										</div>
+										<div class="col-lg-3 col-sm-3">
+											<button  type="button" class="btn btn-info" onclick="mostrarSunat()">Sunat</button>
+
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Nombre</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Nombre</label>
+										<div class="col-lg-9 col-sm-10">
 											<input type="text" name="nombre" id="nombre"
 												class="form-control" /> <input type="hidden" name="id"
 												id="id" /> <input type="hidden" name="idCuenta"
 												id="idCuenta" />
+											
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Apellidos</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Apellidos</label>
+										<div class="col-lg-9 col-sm-10">
 											<input type="text" name="apellidos" id="apellidos"
 												class="form-control" />
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Correo</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Correo</label>
+										<div class="col-lg-9 col-sm-10 ">
 											<input type="text" name="correo" id="correo"
 												class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">telefono</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">telefono</label>
+										<div class="col-lg-9 col-sm-10">
 											<input type="text" name="telefono" id="telefono"
 												class="form-control" />
 										</div>
@@ -90,8 +96,8 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Es Ruc</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Es Ruc</label>
+										<div class="col-lg-9 col-sm-10">
 											<div class="checkbox">
 												<label> <input type="checkbox" id="isRuc"
 													name="isRuc" />
@@ -100,15 +106,15 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Compañia</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Compañia</label>
+										<div class="col-lg-9 col-sm-10">
 											<input type="text" name="company" id="company"
 												class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Estado</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Estado</label>
+										<div class="col-lg-9 col-sm-10">
 											<select name="status" id="status" class="form-control">
 												<option value="1">Activo</option>
 												<option value="0">Inactivo</option>
@@ -116,15 +122,15 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Ciudad</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Ciudad</label>
+										<div class="col-lg-9 col-sm-10">
 											<input type="text" name="ciudad" id="ciudad"
 												class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Direccion</label>
-										<div class="col-lg-9">
+										<label class="col-lg-3 col-sm-2 control-label">Direccion</label>
+										<div class="col-lg-9 col-sm-10">
 											<textarea class="form-control" rows="3" name="direccion"
 												id="direccion"></textarea>
 										</div>
@@ -141,15 +147,15 @@
 				</div>
 			</div>
 		</div>
-	</th:block>
+	</div>
 	<th:block layout:fragment="scripts">
 		<script th:inline="javascript">
         var dtTable;
         var urlContext=/*[[@{/}]]*/;
-        var saveURL = urlContext+"/cliente/";
-        var listAllURL = urlContext+'/cliente/listAll';
-        var getByURL = urlContext+"/cliente/getById/";
-        var deleteURL = urlContext+"/cliente/delete/";
+        var saveURL = urlContext+"cliente";
+        var listAllURL = urlContext+'cliente/listAll';
+        var getByURL = urlContext+"cliente/getById/";
+        var deleteURL = urlContext+"cliente/delete/";
        
         function arrayDatatable(elem){
         	 var array=[
@@ -202,15 +208,31 @@
 	        $("#identificador").val(data.identificador);
 	        $("#company").val(data.company);
 	        $("#telefono").val(data.telefono);
-	        $("#ciudad").val(data.ciudad),
-	        $("#status").val(data.status),
-	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc))
+	        $("#ciudad").val(data.ciudad);
+	        $("#status").val(data.status);
+	        $("#isRuc").prop('checked', integerToBoolean(data.isRuc));
+	        $("#direccion").val(data.direccion);
         }
 		function showDetail(id){			
 			showDetailFunction(getByURL,id, functionSetData)
 		}
          
-        
+		 function functionSetDataPorIdentificadorCliente(data){
+        	 
+	        	$("#id").val(data.idCliente);
+		        $("#nombre").val(data.nombre);
+		        $("#apellidos").val(data.apellido);
+		        $("#correo").val(data.email);
+		        $("#identificador").val(data.identificador);
+		        $("#company").val(data.company);
+		        $("#telefono").val(data.telefono);
+		        $("#ciudad").val(data.ciudad);
+		        $("#status").val(data.status);		        
+		        $("#isRuc").prop('checked', integerToBoolean(data.isRuc));
+		        if(data.direccion!=null){
+		        	$("#direccion").val(data.direccion);
+		        }
+	        }
 
         function deleteData(id) {
         	deleteElement("el cliente",id,deleteURL,showList,resetFormElement)
@@ -223,6 +245,21 @@
         }
         function resetFormElement() {
             resetForm("frmModalCliente");
+        }
+        
+        function mostrarSunat(){
+
+        	var listDataSunat = urlContext+'getByRUC';
+        	if($("#identificador").val().length>8){
+        		var listDataSunat = urlContext+'getByRUC';
+        	}else{
+        		var listDataSunat = urlContext+'getByDNI';
+        	}
+
+        	var arrayData={                    
+                    identificador: $("#identificador").val()
+            }
+        	showDetailFunctionPost(listDataSunat,arrayData, functionSetDataPorIdentificadorCliente)
         }
     </script>
 

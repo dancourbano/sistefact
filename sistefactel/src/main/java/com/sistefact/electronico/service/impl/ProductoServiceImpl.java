@@ -1,6 +1,8 @@
 package com.sistefact.electronico.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +43,14 @@ public class ProductoServiceImpl implements ProductoService{
 	    @Override
 	    public List<Producto> getAll() {
 	        return (List<Producto>) productoRepo.findAll();
+	    }
+	    
+	    @Override
+	    public Set<Producto> getProductsByUser(Long userId) {
+
+	        Set<Producto> productSet = new HashSet<>();
+	        productoRepo.findByUser_Id(userId).iterator().forEachRemaining(productSet::add);
+
+	        return productSet;
 	    }
 }
