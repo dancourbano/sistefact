@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{layout}">
+
+<body>
+	 <div class="row" layout:fragment="content">
+	 <div class="col-lg-12">
+	 <section class="panel">
+	 <header class="panel-heading">
+                            <div>Listar Modelo de Reporte de Laboratorio</div>
+     </header>
+	
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-8">
+				<button type="button" class="btn bg-blue btn-labeled heading-btn"
+					onclick="create()">
+					<i class="icon-plus3 position-left"></i> Agregar
+				</button>
+			</div>
+		</div>
+		<br />
+
+
+		<table id="dtElement"
+			class="table table-bordered datatable-save-state">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th class="text-center">Accion</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+
+		<div id="modal_default" class="modal fade">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h5 class="modal-title">Modelo Laboratorio</h5>
+					</div>
+
+					<div class="modal-body">
+
+						<form id="frmModalModelo" class="form-horizontal">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label class="col-lg-3  col-sm-2 control-label">Nombre</label>
+										<div class="col-lg-6 col-sm-7">
+											<input type="text" name="nombre" id="nombre"
+												class="form-control" /><input type="hidden" name="modeloid"
+												id="modeloid" /> 
+
+										</div>
+										 
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3  col-sm-2 control-label">Estructura</label>
+										<div class="col-lg-6 col-sm-7">
+                          					<textarea id="editorWeb" name="detalleModelo"></textarea>
+                          				</div>
+                          			</div>
+									</div>
+							</div>
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+						<button type="button" onclick="save()" class="btn btn-primary">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+	
+	</section>
+	</div>
+	</div>
+	
+	<div layout:fragment="scripts">
+		<script>
+		/*<![CDATA[*/
+	        var context = "/";
+	    /*]]>*/
+        var dtTable;
+        var urlContext=context+"modeloinformelab";
+        var saveURL = urlContext+"/save";
+        var listAllURL = urlContext+'/listAll';
+        var getByURL = urlContext+"/getById/";
+        var deleteURL = urlContext+"/delete/";
+       
+        function arrayDatatable(elem){
+        	 var array=[
+                 elem.modeloid,
+                 elem.nombre,
+                  
+                 dropDown(elem.modeloid)];
+        	return array;
+        }
+        function validateform(){
+        	$("#frmModalModelo").validate({
+                rules: {
+                    nombre: {
+                        required: true,
+                    }
+                    
+                },
+                messages: {
+                	nombre: {
+                        required: "Ingrese un nombre",
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+        	
+        	dtTable = $("#dtElement").DataTable({                              
+                searching: true
+            });
+        	MostrarSummerNote();
+        	validateform();
+            showList();
+        });
+        
+       	function save(){	 
+       		
+       		var $form = $("#frmModalModelo");
+       		if($form.valid()){
+       			var arrayData = getFormData($form);
+       			saveFunction(saveURL,arrayData,arrayData.modeloid);
+       		}
+       	}
+		function showList(){
+			showListAllFunction(listAllURL,arrayDatatable,dtTable);
+		}       
+		
+        function create() {
+        	resetFormElement();
+            $("#modeloid").val(0);
+            $('#modal_default').modal();
+        }
+        function functionSetData(data){
+        	var form = $("#frmModalModelo");
+        	form.find("input").not("[type='submit']").not("[type='reset']").each(function(){
+                var thisInput = $(this);
+                $("#"+thisInput.attr("name")).val(data[thisInput.attr("name")]);
+            });
+        	editor.setContents(data.detalleModelo);
+        }
+		function showDetail(id){			
+			showDetailFunction(getByURL,id, functionSetData)
+		}
+
+        function deleteData(id) {
+        	deleteElement("el Modelo",id,deleteURL,showList,resetFormElement)
+        }
+         
+        function integerToBoolean(value){
+            return (parseInt(value)==1)?true:false;            
+        }
+        function resetFormElement() {
+            resetForm("frmModalModelo");
+            editor.setContents("");
+        }
+        
+       
+     
+        function getFormData($form){
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+
+            $.map(unindexed_array, function(n, i){
+            	if(n['name']=='modeloid' && n['value']===0){
+            		indexed_array[n['name']] = 0;
+            	} else if(n['name']=='detalleModelo'){
+            		indexed_array[n['name']] = editor.getContents();
+            	} else{
+                	indexed_array[n['name']] = n['value'];
+            	}
+            });
+
+            return indexed_array;
+        }
+        $('.default-date-picker').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            autoclose: true,
+            changeMonth: true,
+            changeYear: true
+        });
+        function MostrarSummerNote(){
+        	editor=SUNEDITOR.create('editorWeb',{
+	   		     
+       		    width : '100%',
+       		    maxWidth : '600px',
+       		    minWidth : '400px',
+       		    height : 'auto',
+       		    videoWidth : '80%',
+       		    youtubeQuery : 'autoplay=1&mute=1&enablejsapi=1',
+       		    popupDisplay : 'local',
+       		    resizingBar : false,
+    	   		 buttonList : [
+    	   	        ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+    	   	        ['bold', 'underline', 'italic', 'strike', 'removeFormat','fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table','link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview']
+    	   	    ],
+       		    callBackSave: function (contents, isChanged) {
+       		        alert(contents);
+       		    }
+        });
+        }
+        </script>
+
+    	</div>
+</body>
+</html>

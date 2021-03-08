@@ -1,87 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	>
 
-<head>
-
-</head>
-<body>
+ 
 
 <!-- Navbar -->
 
-    <div class="layout-sidebar" th:fragment="menu">
-        <div class="layout-sidebar-backdrop"></div>
-        <div class="layout-sidebar-body">
-            <div class="custom-scrollbar">
-                <nav id="sidenav" class="sidenav-collapse collapse">
-                    <ul class="sidenav">
-                        <li class="sidenav-search hidden-md hidden-lg">
-                            <form class="sidenav-form" action="http://demo.naksoid.com/">
-                                <div class="form-group form-group-sm">
-                                    <div class="input-with-icon">
-                                        <input class="form-control" type="text" placeholder="Search…"/>
-                                        <span class="icon icon-search input-icon"></span>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-                        <li class="sidenav-heading">Navigation</li>
-                        <li class="sidenav-item has-subnav">
-                            <a href="dashboard-1.html" aria-haspopup="true">
-                                <span class="sidenav-icon icon icon-home"></span>
-                                <span class="sidenav-label">Cliente</span>
-                            </a>
-                            <ul class="sidenav-subnav collapse">
+    
+		<!--sidebar start-->
+      <aside th:fragment="menu">
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+                  <li>
+                      <a class="active" th:href="@{/}">
+                          <i class="fa fa-dashboard"></i>
+                          <span>Inicio</span>
+                      </a>
+                  </li>
+				  <li class="sub-menu" sec:authorize="hasRole('ADMIN')">
+                      <a th:href="@{/paciente/}" >
+                          <i class="fa fa-laptop"></i>
+                          <span>Pacientes</span>
+                      </a>	
+				  </li>
+				  <li class="sub-menu" sec:authorize="hasRole('PACIENTE')"  th:if="${session.userSession!=''}" >
+                      <a th:href="@{/paciente/historia/}+${session.userSession} " >
+                          <i class="fa fa-laptop"></i>
+                          <span>Tu Historial</span>
+                      </a>	
+				  </li>
+                  <li class="sub-menu" sec:authorize="hasRole('ADMIN')">
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>Pruebas Lab</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  th:href="@{/informeLab/}">Informes</a></li>
+                          <li><a  th:href="@{/modeloinformelab/}">Modelo</a></li>
+                           
+                      </ul>
+                  </li>
+				  <li class="sub-menu" sec:authorize="hasRole('ADMIN')">
+                      <a th:href="@{/doctor/}" >
+                          <i class="fa fa-laptop"></i>
+                          <span>Doctor</span>
+                      </a>	
+				  </li>
+                  
+                  <!--multi level menu end-->
 
-
-                                <li><a th:href="@{/cliente/addCliente}">Añadir Cliente</a></li>
-                                <li><a th:href="@{/cliente/}">Listar Cliente</a></li>
-                            </ul>
-                        </li>
-                        <li class="sidenav-item has-subnav">
-                            <a href="dashboard-1.html" aria-haspopup="true">
-                                <span class="sidenav-icon icon icon-home"></span>
-                                <span class="sidenav-label">Vehiculo</span>
-                            </a>
-                            <ul class="sidenav-subnav collapse">
-                                <li class="sidenav-subheading">Vehiculo</li>
-
-                                <li><a href="/vehiculo">Vehiculo</a></li>
-                                <li class="sidenav-subheading">Conductor</li>
-
-                                <li><a href="/conductor ">Listar Conductor</a></li>
-                            </ul>
-                        </li>
-                        <li class="sidenav-item has-subnav">
-                            <a href="dashboard-1.html" aria-haspopup="true">
-                                <span class="sidenav-icon icon icon-home"></span>
-                                <span class="sidenav-label">Producto</span>
-                            </a>
-                            <ul class="sidenav-subnav collapse">
-                                <li class="sidenav-subheading">Productos</li>
-
-                                <li><a th:href="@{/producto/}">Listar Producto</a></li>
-                                
-                            </ul>
-                        </li>
-						 <li class="sidenav-item has-subnav">
-                            <a href="dashboard-1.html" aria-haspopup="true">
-                                <span class="sidenav-icon icon icon-home"></span>
-                                <span class="sidenav-label">Ventas</span>
-                            </a>
-                            <ul class="sidenav-subnav collapse">
-                                <li class="sidenav-subheading">Ventas</li>
-
-                                <li><a th:href="@{/ventas/}">Listar Ventas</a></li>
-                                
-                            </ul>
-                        </li>
-
-
-
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</body>
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
 </html>

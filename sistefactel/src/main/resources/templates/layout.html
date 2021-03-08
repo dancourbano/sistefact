@@ -1,714 +1,292 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="manifest" th:href="@{manifest.json}"/>
-<link rel="mask-icon" th:href="@{safari-pinned-tab.svg}" color="#27ae60"/>
-<meta name="theme-color" content="#ffffff"/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,700"/>
-<link rel="stylesheet" th:href="@{/css/vendor.min.css}"/>
-<link rel="stylesheet" th:href="@{/css/sweetalert.css}"/>
-<link rel="stylesheet" th:href="@{/css/elephant.min.css}"/>
-<link rel="stylesheet" th:href="@{/css/application.min.css}"/>
-<body class="layout layout-header-fixed">
-<div class="layout-header">
-    <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand navbar-brand-center" href="index-2.html">
-                <img class="navbar-brand-logo" th:src="@{img/logo-taxistema.png}" alt="Taxistema"/>
-            </a>
-            <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse"
-                    data-target="#sidenav">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="bars">
-              <span class="bar-line bar-line-1 out"></span>
-              <span class="bar-line bar-line-2 out"></span>
-              <span class="bar-line bar-line-3 out"></span>
-            </span>
-                <span class="bars bars-x">
-              <span class="bar-line bar-line-4"></span>
-              <span class="bar-line bar-line-5"></span>
-            </span>
-            </button>
-            <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse"
-                    data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="arrow-up"></span>
-                <span class="ellipsis ellipsis-vertical">
-              <img class="ellipsis-object" width="32" height="32" src="img/0180441436.jpg" alt="Teddy Wilson"/>
-            </span>
-            </button>
-        </div>
-        <div class="navbar-toggleable">
-            <nav id="navbar" class="navbar-collapse collapse">
-                <button class="sidenav-toggler hidden-xs" title="Collapse sidenav ( [ )" aria-expanded="true"
-                        type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="bars">
-                <span class="bar-line bar-line-1 out"></span>
-                <span class="bar-line bar-line-2 out"></span>
-                <span class="bar-line bar-line-3 out"></span>
-                <span class="bar-line bar-line-4 in"></span>
-                <span class="bar-line bar-line-5 in"></span>
-                <span class="bar-line bar-line-6 in"></span>
-              </span>
-                </button>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="visible-xs-block">
-                        <h4 class="navbar-text text-center">Hi, Teddy Wilson</h4>
-                    </li>
-                    <li class="hidden-xs hidden-sm">
-                        <form class="navbar-search navbar-search-collapsed">
-                            <div class="navbar-search-group">
-                                <input class="navbar-search-input" type="text"
-                                       placeholder="Search for people, companies, and more&hellip;"/>
-                                <button class="navbar-search-toggler" title="Expand search form ( S )"
-                                        aria-expanded="false" type="submit">
-                                    <span class="icon icon-search icon-lg"></span>
-                                </button>
-                                <button class="navbar-search-adv-btn" type="button">Advanced</button>
-                            </div>
-                        </form>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
-                  <span class="icon-with-child hidden-xs">
-                    <span class="icon icon-envelope-o icon-lg"></span>
-                    <span class="badge badge-danger badge-above right">8</span>
-                  </span>
-                            <span class="visible-xs-block">
-                    <span class="icon icon-envelope icon-lg icon-fw"></span>
-                    <span class="badge badge-danger pull-right">8</span>
-                    Messages
-                  </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
-                            <div class="dropdown-header">
-                                <a class="dropdown-link" href="compose.html">New Message</a>
-                                <h5 class="dropdown-heading">Recent messages</h5>
-                            </div>
-                            <div class="dropdown-body">
-                                <div class="list-group list-group-divided custom-scrollbar">
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0299419341.jpg"
-                                                     alt="Harry Jones"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">16 min</small>
-                                                <h5 class="notification-heading">Harry Jones</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Hi Teddy, Just wanted to let you know we got
-                                                        the project! We should be starting the planning next week. Harry
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0310728269.jpg"
-                                                     alt="Daniel Taylor"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">2 hr</small>
-                                                <h5 class="notification-heading">Daniel Taylor</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Teddy Boyyyy, label text isn't vertically
-                                                        aligned with value text in grid forms when using
-                                                        .form-control... DT
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0460697039.jpg"
-                                                     alt="Charlotte Harrison"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 20</small>
-                                                <h5 class="notification-heading">Charlotte Harrison</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Dear Teddy, Can we discuss the benefits of
-                                                        this approach during our Monday meeting? Best regards Charlotte
-                                                        Harrison
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0531871454.jpg"
-                                                     alt="Ethan Walker"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 19</small>
-                                                <h5 class="notification-heading">Ethan Walker</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">If you need any further assistance, please
-                                                        feel free to contact us. We are always happy to assist you.
-                                                        Regards, Ethan
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0601274412.jpg"
-                                                     alt="Sophia Evans"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 18</small>
-                                                <h5 class="notification-heading">Sophia Evans</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Teddy, Please call me when you finish your
-                                                        work! I have many things to discuss. Don't forget call me !!
-                                                        Sophia
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0777931269.jpg"
-                                                     alt="Harry Walker"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 17</small>
-                                                <h5 class="notification-heading">Harry Walker</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Thank you for your message. I am currently
-                                                        out of the office, with no email access. I will be returning on
-                                                        20 Jun.
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0872116906.jpg"
-                                                     alt="Emma Lewis"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 15</small>
-                                                <h5 class="notification-heading">Emma Lewis</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Teddy, Please find the attached report. I am
-                                                        truly sorry and very embarrassed about not finishing the report
-                                                        by the deadline.
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0980726243.jpg"
-                                                     alt="Eliot Morgan"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">Sep 15</small>
-                                                <h5 class="notification-heading">Eliot Morgan</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Dear Teddy, Please accept this message as
-                                                        notification that I was unable to work yesterday, due to
-                                                        personal illness.m
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="dropdown-footer">
-                                <a class="dropdown-btn" href="#">See All</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
-                  <span class="icon-with-child hidden-xs">
-                    <span class="icon icon-bell-o icon-lg"></span>
-                    <span class="badge badge-danger badge-above right">7</span>
-                  </span>
-                            <span class="visible-xs-block">
-                    <span class="icon icon-bell icon-lg icon-fw"></span>
-                    <span class="badge badge-danger pull-right">7</span>
-                    Notifications
-                  </span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
-                            <div class="dropdown-header">
-                                <a class="dropdown-link" href="#">Mark all as read</a>
-                                <h5 class="dropdown-heading">Recent Notifications</h5>
-                            </div>
-                            <div class="dropdown-body">
-                                <div class="list-group list-group-divided custom-scrollbar">
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <span class="icon icon-exclamation-triangle bg-warning rounded sq-40"></span>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">35 min</small>
-                                                <h5 class="notification-heading">Update Status</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Failed to get available update data. To
-                                                        ensure the proper functioning of your application, update now.
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <span class="icon icon-flag bg-success rounded sq-40"></span>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">43 min</small>
-                                                <h5 class="notification-heading">Account Contact Change</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">A contact detail associated with your
-                                                        account teddy.wilson, has recently changed.
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <span class="icon icon-exclamation-triangle bg-warning rounded sq-40"></span>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">1 hr</small>
-                                                <h5 class="notification-heading">Failed Login Warning</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">There was a failed login attempt from
-                                                        "192.98.19.164" into the account teddy.wilson.
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0310728269.jpg"
-                                                     alt="Daniel Taylor"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">4 hr</small>
-                                                <h5 class="notification-heading">Daniel Taylor</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Like your post: "Everything you know about
-                                                        Bootstrap is wrong".
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0872116906.jpg"
-                                                     alt="Emma Lewis"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">8 hr</small>
-                                                <h5 class="notification-heading">Emma Lewis</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Like your post: "Everything you know about
-                                                        Bootstrap is wrong".
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0601274412.jpg"
-                                                     alt="Sophia Evans"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">8 hr</small>
-                                                <h5 class="notification-heading">Sophia Evans</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Like your post: "Everything you know about
-                                                        Bootstrap is wrong".
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="list-group-item" href="#">
-                                        <div class="notification">
-                                            <div class="notification-media">
-                                                <img class="rounded" width="40" height="40" src="img/0180441436.jpg"
-                                                     alt="Teddy Wilson"/>
-                                            </div>
-                                            <div class="notification-content">
-                                                <small class="notification-timestamp">9 hr</small>
-                                                <h5 class="notification-heading">Teddy Wilson</h5>
-                                                <p class="notification-text">
-                                                    <small class="truncate">Published a new post: "Everything you know
-                                                        about Bootstrap is wrong".
-                                                    </small>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="dropdown-footer">
-                                <a class="dropdown-btn" href="#">See All</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown hidden-xs">
-                        <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
-                            <img class="rounded" width="36" height="36" src="img/0180441436.jpg" alt="Teddy Wilson"/>
-                            Teddy Wilson
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a href="upgrade.html">
-                                    <h5 class="navbar-upgrade-heading">
-                                        Upgrade Now
-                                        <small class="navbar-upgrade-notification">You have 15 days left in your
-                                            trial.
-                                        </small>
-                                    </h5>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="navbar-upgrade-version">Version: 1.0.0</li>
-                            <li class="divider"></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="login-1.html">Sign out</a></li>
-                        </ul>
-                    </li>
-                    <li class="visible-xs-block">
-                        <a href="contacts.html">
-                            <span class="icon icon-users icon-lg icon-fw"></span>
-                            Contacts
-                        </a>
-                    </li>
-                    <li class="visible-xs-block">
-                        <a href="profile.html">
-                            <span class="icon icon-user icon-lg icon-fw"></span>
-                            Profile
-                        </a>
-                    </li>
-                    <li class="visible-xs-block">
-                        <a href="login-1.html">
-                            <span class="icon icon-power-off icon-lg icon-fw"></span>
-                            Sign out
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
-<div class="layout-main">
-    <th:block layout:include="fragments/menu"/>
-    <div class="layout-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+  <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- Mirrored from thevectorlab.net/flatlab/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 06 Oct 2018 08:24:09 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.html">
 
+    <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-flat">
-                                    <div class="panel-heading">
-                                        <h6 class="panel-title"><th:block layout:fragment="tittle"/></h6>
+    <!-- Bootstrap core CSS -->
+    
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-reset.css}" rel="stylesheet">
+    <!--external css-->
+    <link th:href="@{/assets/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css}" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" type="text/css">
 
-                                        <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+    <!--right slidebar-->
+    <link th:href="@{/css/slidebars.css}" rel="stylesheet">
 
-                                    <div class="panel-body">
-                                        <th:block layout:fragment="content"/>
-                                    </div>
-                                </div>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-fileupload/bootstrap-fileupload.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-datepicker/css/datepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-timepicker/compiled/timepicker.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-daterangepicker/daterangepicker-bs3.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/bootstrap-datetimepicker/css/datetimepicker.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/select2/css/select2.min.css}"/>
+	<link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet"/>
+<!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
+	<link type="text/css" th:href="@{/css/style.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-                            </div>
-                            <div class="col-md-6">
-                            </div>
-                        </div>
+  <body>
+ 	<section id="container">
+		<div th:replace="fragments/header :: header"></div>
+		
+		<div th:replace="fragments/menu :: menu">
+		</div>
+   		<section id="main-content" > 
+   		
+   			 <section class="wrapper" >
+   			 <div class="alert alert-success alert-block fade in" th:if="${exito != null}">
+			<button data-dismiss="alert" class="close close-sm" type="button">
+				<i class="fa fa-times"></i>
+			</button>			
+			<p  th:text="${exito}"></p>
+		</div>
+   			 <div layout:fragment="content"></div>
+   			 </section>
+   		</section>
+	 
+ 
+<div class="sb-slidebar sb-right sb-style-overlay">
+          <h5 class="side-title">Online Customers</h5>
+          <ul class="quick-chat-list">
+              <li class="online">
+                  <div class="media">
+                      <a href="#" class="pull-left media-thumb">
+                          <img alt="" th:src="@{/img/chat-avatar2.jpg}" class="media-object">
+                      </a>
+                      <div class="media-body">
+                          <strong>John Doe</strong>
+                          <small>Dream Land, AU</small>
+                      </div>
+                  </div><!-- media -->
+              </li>
+              <li class="online">
+                  <div class="media">
+                      <a href="#" class="pull-left media-thumb">
+                          <img alt="" th:src="@{/img/chat-avatar.jpg}" class="media-object">
+                      </a>
+                      <div class="media-body">
+                          <div class="media-status">
+                              <span class=" badge bg-important">3</span>
+                          </div>
+                          <strong>Jonathan Smith</strong>
+                          <small>United States</small>
+                      </div>
+                  </div><!-- media -->
+              </li>
 
+              <li class="online">
+                  <div class="media">
+                      <a href="#" class="pull-left media-thumb">
+                          <img alt="" th:src="@{/img/pro-ac-1.png}" class="media-object">
+                      </a>
+                      <div class="media-body">
+                          <div class="media-status">
+                              <span class=" badge bg-success">5</span>
+                          </div>
+                          <strong>Jane Doe</strong>
+                          <small>ABC, USA</small>
+                      </div>
+                  </div><!-- media -->
+              </li>
+              <li class="online">
+                  <div class="media">
+                      <a href="#" class="pull-left media-thumb">
+                          <img alt="" th:src="@{/img/avatar1.jpg}" class="media-object">
+                      </a>
+                      <div class="media-body">
+                          <strong>Anjelina Joli</strong>
+                          <small>Fockland, UK</small>
+                      </div>
+                  </div><!-- media -->
+              </li>
+              <li class="online">
+                  <div class="media">
+                      <a href="#" class="pull-left media-thumb">
+                          <img alt="" th:src="@{/img/mail-avatar.jpg}" class="media-object">
+                      </a>
+                      <div class="media-body">
+                          <div class="media-status">
+                              <span class=" badge bg-warning">7</span>
+                          </div>
+                          <strong>Mr Tasi</strong>
+                          <small>Dream Land, USA</small>
+                      </div>
+                  </div><!-- media -->
+              </li>
+          </ul>
+          <h5 class="side-title"> pending Task</h5>
+          <ul class="p-task tasks-bar">
+              <li>
+                  <a href="#">
+                      <div class="task-info">
+                          <div class="desc">Dashboard v1.3</div>
+                          <div class="percent">40%</div>
+                      </div>
+                      <div class="progress progress-striped">
+                          <div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-success">
+                              <span class="sr-only">40% Complete (success)</span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <div class="task-info">
+                          <div class="desc">Database Update</div>
+                          <div class="percent">60%</div>
+                      </div>
+                      <div class="progress progress-striped">
+                          <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-warning">
+                              <span class="sr-only">60% Complete (warning)</span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <div class="task-info">
+                          <div class="desc">Iphone Development</div>
+                          <div class="percent">87%</div>
+                      </div>
+                      <div class="progress progress-striped">
+                          <div style="width: 87%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-info">
+                              <span class="sr-only">87% Complete</span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <div class="task-info">
+                          <div class="desc">Mobile App</div>
+                          <div class="percent">33%</div>
+                      </div>
+                      <div class="progress progress-striped">
+                          <div style="width: 33%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" role="progressbar" class="progress-bar progress-bar-danger">
+                              <span class="sr-only">33% Complete (danger)</span>
+                          </div>
+                      </div>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      <div class="task-info">
+                          <div class="desc">Dashboard v1.3</div>
+                          <div class="percent">45%</div>
+                      </div>
+                      <div class="progress progress-striped active">
+                          <div style="width: 45%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar">
+                              <span class="sr-only">45% Complete</span>
+                          </div>
+                      </div>
 
+                  </a>
+              </li>
+              <li class="external">
+                  <a href="#">See All Tasks</a>
+              </li>
+          </ul>
+      </div>
+      <!-- Right Slidebar end -->
 
+      <div th:replace="fragments/footer :: footer"></div>
+  </section>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+     <script th:src="@{/assets/Datatables/datatables.min.js}"></script>
+    <script th:src="@{/js/crud.js}"></script>
+    <script th:src="@{/js/medicalabs.utils.js}"></script>
+    <script class="include" type="text/javascript" th:src="@{/js/jquery.dcjqaccordion.2.7.js}"></script>
+    <script th:src="@{/js/jquery.scrollTo.min.js}"></script>
+    <script th:src="@{/js/jquery.nicescroll.js}" type="text/javascript"></script>
+    <script th:src="@{/js/jquery.sparkline.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js}"></script>
+    <script th:src="@{/js/owl.carousel.js}" ></script>
+    <script th:src="@{/js/jquery.customSelect.min.js}" ></script>
+    <script th:src="@{/js/respond.min.js}" ></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+<!-- lanth:guages (Basic Language: English/en) -->
+<script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+	
+	<script type="text/javascript"  th:src="@{/assets/fuelux/js/spinner.min.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-fileupload/bootstrap-fileupload.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-daterangepicker/moment.min.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-daterangepicker/daterangepicker.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/jquery-multi-select/js/jquery.multi-select.js}"></script>
+	  <script type="text/javascript"  th:src="@{/assets/jquery-multi-select/js/jquery.quicksearch.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+	<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	
+  <!--select2-->
+  <script type="text/javascript" th:src="@{/assets/select2/js/select2.min.js}"></script>
+    <!--right slidebar-->
+    <script th:src="@{/js/slidebars.min.js}"></script>
 
+    <!--common script for all pages-->
+    <script th:src="@{/js/common-scripts.js}"></script>
 
+    <!--script for this page-->
+    <script th:src="@{/js/sparkline-chart.js}"></script>
+    <script th:src="@{/js/easy-pie-chart.js}"></script>
+    <script th:src="@{/assets/summernote/dist/summernote.min.js}"></script>
+    <script th:src="@{/js/count.js}"></script>
+	<div layout:fragment="scripts"></div>
+  <script>
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="layout-footer">
-        <th:block layout:include="fragments/footer"/>
+      //owl carousel
 
-    </div>
-</div>
+      $(document).ready(function() {
+          $("#owl-demo").owlCarousel({
+              navigation : true,
+              slideSpeed : 300,
+              paginationSpeed : 400,
+              singleItem : true,
+			  autoPlay:true
 
-<div class="theme">
-    <div class="theme-panel theme-panel-collapsed">
-        <div class="theme-panel-controls">
-            <button class="theme-panel-toggler" title="Expand theme panel ( ] )" type="button">
-                <span class="icon icon-cog icon-spin" aria-hidden="true"></span>
-            </button>
-        </div>
-        <div class="theme-panel-body">
-            <div class="custom-scrollbar">
-                <div class="custom-scrollbar-inner">
-                    <h5 class="theme-heading">
-                        <a href="http://demo.naksoid.com/elephant/buy" class="btn btn-primary btn-block">Buy Elephant
-                            Now!</a>
-                    </h5>
-                    <ul class="theme-settings">
-                        <li class="theme-settings-heading">
-                            <div class="divider">
-                                <div class="divider-content">Theme Settings</div>
-                            </div>
-                        </li>
-                        <li class="theme-settings-item">
-                            <div class="theme-settings-label">Header fixed</div>
-                            <div class="theme-settings-switch">
-                                <label class="switch switch-primary">
-                                    <input class="switch-input" type="checkbox" name="layout-header-fixed"
-                                           data-sync="true"/>
-                                    <span class="switch-track"></span>
-                                    <span class="switch-thumb"></span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="theme-settings-item">
-                            <div class="theme-settings-label">Sidebar fixed</div>
-                            <div class="theme-settings-switch">
-                                <label class="switch switch-primary">
-                                    <input class="switch-input" type="checkbox" name="layout-sidebar-fixed"
-                                           data-sync="true"/>
-                                    <span class="switch-track"></span>
-                                    <span class="switch-thumb"></span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="theme-settings-item">
-                            <div class="theme-settings-label">Sidebar sticky*</div>
-                            <div class="theme-settings-switch">
-                                <label class="switch switch-primary">
-                                    <input class="switch-input" type="checkbox" name="layout-sidebar-sticky"
-                                           data-sync="true"/>
-                                    <span class="switch-track"></span>
-                                    <span class="switch-thumb"></span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="theme-settings-item">
-                            <div class="theme-settings-label">Sidebar collapsed</div>
-                            <div class="theme-settings-switch">
-                                <label class="switch switch-primary">
-                                    <input class="switch-input" type="checkbox" name="layout-sidebar-collapsed"
-                                           data-sync="false"/>
-                                    <span class="switch-track"></span>
-                                    <span class="switch-thumb"></span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="theme-settings-item">
-                            <div class="theme-settings-label">Footer fixed</div>
-                            <div class="theme-settings-switch">
-                                <label class="switch switch-primary">
-                                    <input class="switch-input" type="checkbox" name="layout-footer-fixed"
-                                           data-sync="true"/>
-                                    <span class="switch-track"></span>
-                                    <span class="switch-thumb"></span>
-                                </label>
-                            </div>
-                        </li>
-                        <li class="theme-settings-description">
-                  <span>
-                    <strong>Sidebar sticky*</strong> - by scrolling up and down the page, the menu placed on the sidebar moves along with the content until the bottom of the menu is reached. <a
-                          href="page-layouts.html">Learn more</a></span>
-                        </li>
-                    </ul>
-                    <hr class="theme-divider"/>
-                    <ul class="theme-variants">
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/flaming-red/"
-                               title="Flaming Red (default)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/9722110524.jpg" alt="Flaming Red Theme"/>
-                            </a>
-                            <a class="theme-variants-alt" href="http://demo.naksoid.com/elephant/flaming-red-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/flaming-red-inverse/"
-                               title="Flaming Red (inverse)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/9870681590.jpg" alt="Flaming Red Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/flaming-red-inverse-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item theme-variants-current">
-                            <a class="theme-variants-link" href="index.html" title="Flatistic Green (default)"
-                               data-container="body" data-trigger="hover" data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/9964167452.jpg" alt="Flatistic Green Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/flatistic-green-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link"
-                               href="http://demo.naksoid.com/elephant/flatistic-green-inverse/"
-                               title="Flatistic Green (inverse)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1007517980.jpg" alt="Flatistic Green Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/flatistic-green-inverse-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/midnight-blue/"
-                               title="Midnight Blue (default)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1015664515.jpg" alt="Midnight Blue Theme"/>
-                            </a>
-                            <a class="theme-variants-alt" href="http://demo.naksoid.com/elephant/midnight-blue-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link"
-                               href="http://demo.naksoid.com/elephant/midnight-blue-inverse/"
-                               title="Midnight Blue (inverse)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1025453682.jpg" alt="Midnight Blue Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/midnight-blue-inverse-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/materialistic-blue/"
-                               title="Materialistic Blue (default)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1033422797.jpg" alt="Materialistic Blue Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/materialistic-blue-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link"
-                               href="http://demo.naksoid.com/elephant/materialistic-blue-inverse/"
-                               title="Materialistic Blue (inverse)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1044368407.jpg" alt="Materialistic Blue Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/materialistic-blue-inverse-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/eerie-black/"
-                               title="Eerie Black (default)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1050099119.jpg" alt="Eerie Black Theme"/>
-                            </a>
-                            <a class="theme-variants-alt" href="http://demo.naksoid.com/elephant/eerie-black-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                        <li class="theme-variants-item">
-                            <a class="theme-variants-link" href="http://demo.naksoid.com/elephant/eerie-black-inverse/"
-                               title="Eerie Black (inverse)" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">
-                                <img class="img-responsive" src="img/1067123558.jpg" alt="Eerie Black Theme"/>
-                            </a>
-                            <a class="theme-variants-alt"
-                               href="http://demo.naksoid.com/elephant/eerie-black-inverse-rounded/"
-                               title="Rounded Corners Version" data-container="body" data-trigger="hover"
-                               data-placement="top" data-toggle="tooltip">Rounded</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="theme-panel-footer">
-            <a class="rounded sq-36 bg-facebook"
-               href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdemo.naksoid.com%2Felephant&amp;t=The%20fastest%20way%20to%20build%20modern%20admin%20site%20for%20any%20platform%2C%20browser%2C%20or%20device"
-               title="Share on Facebook" target="_blank">
-                <span class="icon icon-facebook"></span>
-            </a>
-            <a class="rounded sq-36 bg-twitter"
-               href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fdemo.naksoid.com%2Felephant&amp;text=The%20fastest%20way%20to%20build%20modern%20admin%20site%20for%20any%20platform%2C%20browser%2C%20or%20device:%20http%3A%2F%2Fdemo.naksoid.com%2Felephant&amp;via=naksoid"
-               title="Tweet" target="_blank">
-                <span class="icon icon-twitter"></span>
-            </a>
-            <a class="rounded sq-36 bg-googleplus"
-               href="https://plus.google.com/share?url=http%3A%2F%2Fdemo.naksoid.com%2Felephant"
-               title="Share on Google+" target="_blank">
-                <span class="icon icon-google-plus"></span>
-            </a>
-            <a class="rounded sq-36 bg-linkedin"
-               href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fdemo.naksoid.com%2Felephant&amp;title=The%20fastest%20way%20to%20build%20modern%20admin%20site%20for%20any%20platform%2C%20browser%2C%20or%20device&amp;summary=Elephant%20is%20a%20front-end%20template%20created%20to%20help%20you%20build%20modern%20web%20applications%2C%20fast%20and%20in%20a%20professional%20manner.&amp;source=http%3A%2F%2Fdemo.naksoid.com%2Felephant"
-               title="Share on LinkedIn" target="_blank">
-                <span class="icon icon-linkedin"></span>
-            </a>
-            <a class="rounded sq-36 bg-pinterest"
-               href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fdemo.naksoid.com%2Felephant&amp;media=http://demo.naksoid.com/elephant/img/ae165ef33d137d3f18b7707466aa774d.jpg&amp;description=Elephant%20is%20a%20front-end%20template%20created%20to%20help%20you%20build%20modern%20web%20applications%2C%20fast%20and%20in%20a%20professional%20manner."
-               title="Pin it" target="_blank">
-                <span class="icon icon-pinterest-p"></span>
-            </a>
+          });
+      });
 
-        </div>
-    </div>
-</div>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+      $(window).on("resize",function(){
+          var owl = $("#owl-demo").data("owlCarousel");
+          owl.reinit();
+      });
+
+  </script>
 </body>
-<script
-        src="https://code.jquery.com/jquery-1.12.4.js"
-        ></script>
-<script th:src="@{/js/taxistema.utils.js}"></script>
-<script th:src="@{/js/crud.js}"></script>
-<th:block layout:fragment="scripts"/>
-<script th:src="@{/js/vendor.min.js}"></script>
-<script th:src="@{/js/elephant.min.js}"></script>
-<script th:src="@{/js/sweetalert.min.js}"></script>
-<script th:src="@{/js/application.min.js}"></script>
-<script th:src="@{/js/demo.min.js}"></script>
-
-
-
 </html>
+
+ 
